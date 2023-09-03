@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import cors from "cors";
 import { createDeckController } from "./controllers/createDeckController";
 import { getDecksController } from "./controllers/getDecksController";
+import { deleteDeckController } from "./controllers/deleteDeckController";
 
 const app = express();
 config();
@@ -22,6 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.post("/decks", createDeckController);
 app.get("/decks", getDecksController);
+app.delete("/decks/:deckId", deleteDeckController);
 
 const PORT = process.env.PORT || 8000;
 
