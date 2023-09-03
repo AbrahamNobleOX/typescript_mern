@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { config } from "dotenv";
 import cors from "cors";
 import { createDeckController } from "./controllers/createDeckController";
+import { getDecksController } from "./controllers/getDecksController";
 
 const app = express();
 config();
@@ -20,6 +21,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/decks", createDeckController);
+app.get("/decks", getDecksController);
 
 const PORT = process.env.PORT || 8000;
 
