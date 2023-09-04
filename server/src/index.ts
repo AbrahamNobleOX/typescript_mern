@@ -6,6 +6,7 @@ import { createDeckController } from "./controllers/createDeckController";
 import { getDecksController } from "./controllers/getDecksController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
 import { createCardForDeckController } from "./controllers/createCardForDeckController";
+import { getDeckController } from "./controllers/getDeckController";
 
 const app = express();
 config();
@@ -29,6 +30,7 @@ app.delete("/decks/:deckId", deleteDeckController);
 
 // Cards
 app.post("/decks/:deckId/cards", createCardForDeckController);
+app.get("/decks/:deckId", getDeckController); // For getting cards
 
 const PORT = process.env.PORT || 8000;
 
