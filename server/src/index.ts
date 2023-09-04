@@ -5,6 +5,7 @@ import cors from "cors";
 import { createDeckController } from "./controllers/createDeckController";
 import { getDecksController } from "./controllers/getDecksController";
 import { deleteDeckController } from "./controllers/deleteDeckController";
+import { createCardForDeckController } from "./controllers/createCardForDeckController";
 
 const app = express();
 config();
@@ -21,9 +22,13 @@ app.get("/", (req: Request, res: Response) => {
   res.send("hello world");
 });
 
+// Decks
 app.post("/decks", createDeckController);
 app.get("/decks", getDecksController);
 app.delete("/decks/:deckId", deleteDeckController);
+
+// Cards
+app.post("/decks/:deckId/cards", createCardForDeckController);
 
 const PORT = process.env.PORT || 8000;
 
