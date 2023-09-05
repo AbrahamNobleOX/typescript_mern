@@ -4,6 +4,7 @@ import { createCard } from "./api/createCard";
 import { useParams } from "react-router-dom";
 import { getDeck } from "./api/getDeck";
 import { TDeck } from "./api/getDecks";
+import { deleteCard } from "./api/deleteCard";
 
 export default function Deck() {
   const [text, setText] = useState("");
@@ -13,6 +14,8 @@ export default function Deck() {
 
   async function handleCreateDeck(e: React.FormEvent) {
     e.preventDefault();
+
+    // This is a destructuring assignment syntax. It means that you want to extract the cards property from the object returned by await createCard(deckId!, text) and assign its value to a new variable named serverCards.
     const { cards: serverCards } = await createCard(deckId!, text);
     setCards(serverCards);
     setText("");
@@ -28,6 +31,15 @@ export default function Deck() {
     fetchDeck();
   }, [deckId]);
 
+  async function handleDeleteCard(index: number) {
+    if (!deckId) {
+      return;
+    }
+
+    const newDeck = await deleteCard(deckId, index);
+    setCards(newDeck.cards);
+  }
+
   return (
     <div className="Deck">
       <h1>{deck?.title}</h1>
@@ -35,7 +47,7 @@ export default function Deck() {
       <ul className="cards">
         {cards.map((card, index) => (
           <li key={index}>
-            <button>X</button>
+            <button onClick={() => handleDeleteCard(index)}>X</button>
             {card}
           </li>
         ))}
